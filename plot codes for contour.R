@@ -1,33 +1,18 @@
-library(ggplot2)
-library(ggpubr)
-library(tidyverse)
-library(ggthemes)
-install.packages("tidyverse")
-install.packages("lattice")
-install.packages("ggpubr")
-install.packages("ggthemes")
-library(ContourFunctions)
-install.packages("laGP")
-library(laGP)
-library(lattice)
-library(RColorBrewer)
-library(ggpubr)
-install.packages("metR")
-library(metR)
-install.packages("knitr")
-install.packages("tinytex")
-library(tinytex)
-library(readxl)
-install.packages("ggnewscale")
-library(ggnewscale)
+require(ggplot2)
+require(ggpubr)
+require(tidyverse)
+require(ContourFunctions)
+require(laGP)
+require(lattice)
+require(metR)
 
-x<- seq(15,115, length = 500)
+x<- seq(15,115, length = 500) #Assigned Temperature range
 x
-y <- seq(-9.94, -6.5, length = 500)
+y <- seq(-9.94, -6.5, length = 500)#Carbonate d18O composition
 
 df=expand.grid(x=x,y=y)
 df$z= (((df$y*1.03092+30.92)+1000)/exp((((2.9923*10^6)/((df$x+273.15)^2))-2.3592)/1000))-1000
-df$z
+df$z # Calculated d18O of water for matrix
 format(round(df$z, 2), nsmall = 2)
 
 
