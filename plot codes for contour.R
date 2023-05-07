@@ -5,17 +5,18 @@ require(ContourFunctions)
 require(laGP)
 require(lattice)
 require(metR)
+#These packages are required for prepare the data to make the contour plot. 
 
-x<- seq(15,115, length = 500) #Assigned Temperature range
+x<- seq(15,115, length = 500) #Required Temperature range
 x
-y <- seq(-9.94, -6.5, length = 500)#Carbonate d18O composition
-
+y <- seq(-9.94, -6.5, length = 500) #Required d18O(VPDB) composition
+#Creating the matrix of plot
 df=expand.grid(x=x,y=y)
-df$z= (((df$y*1.03092+30.92)+1000)/exp((((2.9923*10^6)/((df$x+273.15)^2))-2.3592)/1000))-1000
+df$z= (((df$y*1.03092+30.92)+1000)/exp((((2.9923*10^6)/((df$x+273.15)^2))-2.3592)/1000))-1000 # Constructed for dolomite using the equation of Müller et al. (2019) 
 df$z # Calculated d18O of water for matrix
 format(round(df$z, 2), nsmall = 2)
 
-
+#This plots the backgroud with contour lines and points can be added as another layer on top of the background.
 ggplot() +
   geom_tile(data=df, aes(x=df$x,y=df$y,z=df$z,fill=df$z))+
     stat_contour(data=df, aes(x=df$x,y=df$y,z=df$z,fill=df$z),color = 'Black', linetype = 1, size =0.7)+
